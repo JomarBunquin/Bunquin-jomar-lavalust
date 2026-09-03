@@ -128,11 +128,14 @@ p.lead {
 /* Navigation buttons */
 nav {
     margin-top: 1.75rem;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
 }
 nav a {
     display: inline-block;
-    margin: 0 0.4rem;
     padding: 0.6rem 1.3rem;
     background: var(--brand-blue);
     color: #fff;
@@ -141,6 +144,7 @@ nav a {
     font-weight: 700;
     font-size: 0.9rem;
     transition: background 0.2s;
+    white-space: nowrap;
 }
 nav a:hover { background: var(--brand-blue-dark); }
 nav a.secondary { background: #e5e7eb; color: #111827; }

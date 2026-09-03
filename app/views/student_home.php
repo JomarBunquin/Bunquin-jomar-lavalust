@@ -17,6 +17,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <nav>
             <a href="<?= site_url('/'); ?>">Home</a>
             <a href="<?= site_url('student/profile'); ?>" class="secondary">My Profile</a>
+            <a href="<?= site_url('users'); ?>" class="secondary">View Users Table</a>
         </nav>
     </div>
 </body>
