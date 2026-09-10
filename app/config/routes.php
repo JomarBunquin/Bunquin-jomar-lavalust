@@ -44,9 +44,28 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 /** @var object $router **/
 
+// LavaLust does not autoload app/config/middleware.php by default.
+// Force it to load here so route-level ->middleware() calls actually work.
+Registry::get_object('config')->load('middleware');
 
 $router->get('/', 'StudentController::index');
 $router->get('/student/confirm', 'StudentController::confirm');
 $router->post('/student/confirm', 'StudentController::verify');
 $router->get('/users', 'UserController::index');
 $router->get('/student/profile', 'StudentController::profile')->middleware('student_access');
+
+// --- Lab 5: Authentication ---
+$router->get('/login', 'AuthController::login');
+$router->post('/login', 'AuthController::authenticate');
+$router->get('/logout', 'AuthController::logout');
+
+// --- Lab 5: Product CRUD (protected) ---
+$router->get('/products', 'ProductController::index')->middleware('auth');
+$router->get('/products/create', 'ProductController::create')->middleware('auth');
+$router->post('/products/create', 'ProductController::create')->middleware('auth');
+$router->get('/products/edit/{id}', 'ProductController::edit')->middleware('auth');
+$router->post('/products/edit/{id}', 'ProductController::edit')->middleware('auth');
+$router->post('/products/delete/{id}', 'ProductController::delete')->middleware('auth');
+
+// One-time migration runner (protected by MIGRATE_KEY env var, see MigrateController)
+$router->get('/migrate', 'MigrateController::run');
